@@ -18,3 +18,19 @@ DeleteCarEvent.OnServerEvent:Connect(function(player, Car)
 		Car:Remove()
 	end
 end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+	local Car = game.Workspace:FindFirstChild(player.Name .. 'sCar')
+	if Car then
+		Car:Remove()
+	end
+end)
+
+game.Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		local Car = game.Workspace:FindFirstChild(player.Name .. 'sCar')
+		if Car then
+			Car:Remove()
+		end
+	end)
+end)
