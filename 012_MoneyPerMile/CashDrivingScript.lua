@@ -34,7 +34,7 @@ ChangeTitlesEvent.OnServerEvent:Connect(function(player)
 		if counters.unit > #Units then
 			counters.unit = 1
 		end
-		ChangeTitlesEvent:FireClient(player, player, counters.duration, Units[counters.unit], counters.totalStuds, counters.cash)
+		ChangeTitlesEvent:FireClient(player, counters.duration, Units[counters.unit], counters.totalStuds, counters.cash)
 	end
 end)
 
