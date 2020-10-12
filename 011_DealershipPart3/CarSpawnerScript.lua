@@ -8,9 +8,16 @@ SpawnCarEvent.OnServerEvent:Connect(function(player, carName)
 	local PlayerPurchasedCars = PurchasedCars:FindFirstChild(player.Name)
 	if PlayerPurchasedCars then
 		local Car = PlayerPurchasedCars:FindFirstChild(carName)
+		local CurCar = game.Workspace:FindFirstChild(player.Name .. 'sCar')
+		if CurCar then
+			CurCar:Remove()
+		end
 		if Car then
 			local clonedCar = Car:Clone()
 			clonedCar.Name = player.Name .. 'sCar'
+			if clonedCar:IsA("Model") then
+				clonedCar:MakeJoints()
+			end
 			clonedCar.Parent = game.Workspace
 			clonedCar:MoveTo(player.Character.HumanoidRootPart.Position + player.Character.HumanoidRootPart.CFrame.LookVector * 15)
 		end
