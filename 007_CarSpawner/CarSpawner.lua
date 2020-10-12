@@ -5,6 +5,10 @@ local DeleteCarEvent = ReplicatedStorage:WaitForChild("DeleteCar")
 
 SpawnCarEvent.OnServerEvent:Connect(function(player, carName)
 	local Car = ServerStorage:FindFirstChild("Cars"):FindFirstChild(carName)
+	local CurCar = game.Workspace:FindFirstChild(player.Name .. 'sCar')
+	if CurCar then
+		CurCar:Remove()
+	end
 	if Car then
 		local clonedCar = Car:Clone()
 		clonedCar.Name = player.Name .. 'sCar'
