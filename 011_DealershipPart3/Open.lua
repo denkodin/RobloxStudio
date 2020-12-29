@@ -1,4 +1,4 @@
-local Detector = game.Workspace.Dealership.Detector
+local Detector = game.Workspace:WaitForChild("Dealership"):WaitForChild("Detector")
 local CloseDistance = math.max(Detector.Size.X, Detector.Size.Z)
 local CloseButton = script.Parent.Close
 
