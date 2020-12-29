@@ -12,13 +12,15 @@ CloseButton.MouseButton1Down:Connect(function()
 	script.Parent.Enabled = false
 end)
 
-while true do
-	wait()
-	if game.Players.LocalPlayer.Character then
-		local HumanoidRootPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-		local mag = (HumanoidRootPart.Position-Detector.Position).Magnitude
-		if mag >= CloseDistance + math.max(HumanoidRootPart.Size.X, HumanoidRootPart.Size.Z) and script.Parent.Enabled == true then
-			script.Parent.Enabled = false
+script.Parent:GetPropertyChangedSignal("Enabled"):Connect(function()
+	while script.Parent.Enabled do
+		wait(0.1)
+		if game.Players.LocalPlayer.Character then
+			local HumanoidRootPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+			local mag = (HumanoidRootPart.Position-Detector.Position).Magnitude
+			if mag >= CloseDistance + math.max(HumanoidRootPart.Size.X, HumanoidRootPart.Size.Z) and script.Parent.Enabled == true then
+				script.Parent.Enabled = false
+			end
 		end
 	end
-end
+end)
