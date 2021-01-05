@@ -12,6 +12,8 @@ CloseButton.MouseButton1Down:Connect(function()
 	script.Parent.Enabled = false
 end)
 
+script.Parent.Enabled = false
+
 script.Parent:GetPropertyChangedSignal("Enabled"):Connect(function()
 	while script.Parent.Enabled do
 		wait(0.1)
