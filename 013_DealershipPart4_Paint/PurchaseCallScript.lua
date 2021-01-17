@@ -45,10 +45,12 @@ Event.Event:Connect(function(Name, Cost, Power, CarImage)
 		Callback_buy = nil
 	end
 	Callback_buy = BuyButton.MouseButton1Down:Connect(function()
-		local ShopCarName = CarImage.Parent.Name
-		PurchaseCarEvent:FireServer(ShopCarName, ChangedColor)
-		script.Parent.Visible = false
-		ColorDialog.Visible = false
+		if not ColorDialog.Visible then
+			local ShopCarName = CarImage.Parent.Name
+			PurchaseCarEvent:FireServer(ShopCarName, ChangedColor)
+			script.Parent.Visible = false
+			ColorDialog.Visible = false
+		end
 	end)
 	if Callback_paint then
 		Callback_paint:disconnect()
@@ -79,6 +81,5 @@ Event.Event:Connect(function(Name, Cost, Power, CarImage)
 		end)
 	end)
 end)
-
 
 
