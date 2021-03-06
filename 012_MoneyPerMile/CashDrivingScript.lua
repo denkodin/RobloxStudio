@@ -1,3 +1,25 @@
+--[[                 Made by denkodin
+YouTube channels:
+https://www.youtube.com/c/H2MinRobloxStudio
+http://www.youtube.com/c/EasyQuestinRobloxStudio
+
+                      License to use
+
+What is allowed?
+You are allowed to use these scripts and this model in your
+games without restrictions, including monetize games.
+
+What is forbidden?
+It is forbidden to sell and distribute in any way these
+scripts and this model.
+Also you may not distribute the model incorporated in
+a derivative model (for instance, you may not made a modified
+version of it and sell it or distribute it).
+And you may not claim you are the creator or copyright holder
+of this model or these scripts.
+It is forbidden to remove this comment from the scripts.
+]]
+
 local ChangeTitlesEvent = game.ReplicatedStorage:WaitForChild("ChangeTitles")
 local Units = { {name = 'STUDS', coeff = 1},
 				{name = 'KM', coeff = 4000},
@@ -24,7 +46,7 @@ function getPlayerCarSeat(player)
 	end
 	return nil
 end
-		
+
 local driversCounters = {}
 
 ChangeTitlesEvent.OnServerEvent:Connect(function(player)
@@ -55,8 +77,8 @@ while true do
 			counters.cash = counters.totalStuds * cashPerStud + counters.duration * CashPerSecond
 			local cashDelta = math.floor(counters.cash - counters.oldCash)
 			if cashDelta >= 1 then
-				player.leaderstats[CurrencyName].Value = player.leaderstats[CurrencyName].Value + cashDelta 
-				counters.oldCash = counters.oldCash + cashDelta 
+				player.leaderstats[CurrencyName].Value = player.leaderstats[CurrencyName].Value + cashDelta
+				counters.oldCash = counters.oldCash + cashDelta
 			end
 			local clonedScreen = player.PlayerGui:FindFirstChild("CashDrivingScreen")
 			if clonedScreen == nil then
@@ -80,4 +102,3 @@ while true do
 	end
 	wait(TimeIncrement)
 end
-
