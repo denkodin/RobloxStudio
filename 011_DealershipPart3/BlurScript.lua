@@ -63,4 +63,4 @@ function Check()
 end
 
 Check()
-script.Parent.Changed:Connect(Check)
+script.Parent:GetPropertyChangedSignal("Enabled"):Connect(Check)

@@ -29,18 +29,36 @@ function OnPlayerAdded(player)
 	local Cash = Instance.new("NumberValue", stats)
 	Cash.Name = "$"
 	Cash.Value = 0
+	local DataLoaded = Instance.new("BoolValue", player)
+	DataLoaded.Name = "CashDataLoaded"
+	DataLoaded.Value = false
+
 	local data
-	local success, err = pcall(function()
-		data = PlayerCash:GetAsync(player.UserId)
-	end)
-	if success then
-		print("Data loaded!")
-		if data then
-			Cash.Value = data
+	local attempts = 10
+
+	repeat
+		local success, err = pcall(function()
+			data = PlayerCash:GetAsync(player.UserId)
+		end)
+		if success then
+			print("Success!")
+			DataLoaded.Value = true
+			break
+		else
+			warn("Was problem with datastore! (Attempts left ", attempts, ")")
 		end
-	else
-		print("There was an error while getting data of player " .. player.Name)
-		warn(err)
+		wait(1)
+		attempts = attempts - 1
+	until attempts <= 0
+
+	if not DataLoaded.Value then
+		warn("Player " .. player.Name .. "'s cash data has not been loaded!")
+		player:Kick("Couldn't load your data, try to rejoin later")
+		return
+	end
+
+	if data then
+		Cash.Value = data
 	end
 	while true do
 		wait(2)
@@ -49,14 +67,25 @@ function OnPlayerAdded(player)
 end
 
 function OnPlayerRemoving(player)
-	local success, err = pcall(function()
-		PlayerCash:SetAsync(player.UserId, player.leaderstats:FindFirstChild("$").Value)
-	end)
-	if success then
-		print("Data saved!")
-	else
-		print("There was an error while saving data of player " .. player.Name)
-		warn(err)
+	if player:FindFirstChild("CashDataLoaded") and player.CashDataLoaded.Value == true then
+		local attempts = 10
+
+		repeat
+			local success, err = pcall(function()
+				PlayerCash:SetAsync(player.UserId, player.leaderstats:FindFirstChild("$").Value)
+			end)
+			if success then
+				print("Success!")
+				break
+			else
+				warn("Was problem with datastore! (Attempts left ", attempts, ")")
+			end
+			wait(1)
+			attempts = attempts - 1
+		until attempts <= 0
+		if attempts <= 0 then
+			warn("Player " .. player.Name .. "'s cash data has not been saved!")
+		end
 	end
 end
 

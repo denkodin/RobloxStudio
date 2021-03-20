@@ -45,10 +45,33 @@ function OnPlayerAdded(player)
 	CharacterAdded = CharacterAdded + 1
 	wait(0.1)
 
+	local DataLoaded = Instance.new("BoolValue", player)
+	DataLoaded.Name = "CarsDataLoaded"
+	DataLoaded.Value = false
+
 	local Data = nil
-	local success, err = pcall(function()
-		Data = DataStore:GetAsync(player.UserId)
-	end)
+	local attempts = 10
+
+	repeat
+		local success, err = pcall(function()
+			Data = DataStore:GetAsync(player.UserId)
+		end)
+		if success then
+			print("Success!")
+			DataLoaded.Value = true
+			break
+		else
+			warn("Was problem with datastore! (Attempts left ", attempts, ")")
+		end
+		wait(1)
+		attempts = attempts - 1
+	until attempts <= 0
+
+	if not DataLoaded.Value then
+		warn("Player " .. player.Name .. "'s cars data has not been loaded!")
+		player:Kick("Couldn't load your data, try to rejoin later")
+		return
+	end
 
 	if Data then
 		for i, v in pairs(Data) do
@@ -70,10 +93,6 @@ function OnPlayerAdded(player)
 			end
 		end
 	end
-	if not success then
-		print("There was an error while getting data of player " .. player.Name)
-		warn(err)
-	end
 	player.CharacterAdded:Connect(function()
 		CharacterAdded = CharacterAdded + 1
 		if CharacterAdded > 1 then
@@ -85,7 +104,7 @@ end
 function OnPlayerRemoving(player)
 	local Cars = {}
 	local PurchasedCars = ServerPurchasedCars:FindFirstChild(player.Name)
-	if PurchasedCars then
+	if player:FindFirstChild("CarsDataLoaded") and player.CarsDataLoaded.Value == true and PurchasedCars then
 		for i, v in pairs(PurchasedCars:GetChildren()) do
 			local color = nil
 			if v:FindFirstChild("Color") and v.Color:IsA("Color3Value") then
@@ -93,12 +112,24 @@ function OnPlayerRemoving(player)
 			end
 			table.insert(Cars, {car = v.Name, color = color})
 		end
-		local success, err = pcall(function()
-			DataStore:SetAsync(player.UserId, Cars)
-		end)
-		if not success then
-			print("There was an error while saving data of player " .. player.Name)
-			warn(err)
+		local attempts = 10
+
+		repeat
+			local success, err = pcall(function()
+				DataStore:SetAsync(player.UserId, Cars)
+			end)
+
+			if success then
+				print("Success!")
+				break
+			else
+				warn("Was problem with datastore! (Attempts left ", attempts, ")")
+			end
+			wait(1)
+			attempts = attempts - 1
+		until attempts <= 0
+		if attempts <= 0 then
+			warn("Player " .. player.Name .. "'s cars data has not been saved!")
 		end
 		PurchasedCars:Remove()
 	end
