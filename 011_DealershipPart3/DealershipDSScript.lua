@@ -69,7 +69,7 @@ function OnPlayerAdded(player)
 
 	if not DataLoaded.Value then
 		warn("Player " .. player.Name .. "'s cars data has not been loaded!")
-		player:Kick("Couldn't load your data, try to rejoin later")
+		-- player:Kick("Couldn't load your data, try to rejoin later")
 		return
 	end
 	if Data then
