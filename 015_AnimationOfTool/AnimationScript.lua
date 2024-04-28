@@ -1,14 +1,9 @@
---[[                 Made by denkodin
-YouTube channels:
+--[[            Made by denkodin
+https://www.roblox.com/users/342156146/profile
 https://www.youtube.com/c/H2MinRobloxStudio
-http://www.youtube.com/c/EasyQuestinRobloxStudio
-                      License to use
-What is allowed?
-You are allowed to use this script in your games without restrictions, including monetize games.
-What is forbidden?
-It is forbidden to sell and distribute in any way this script. And you may not claim you are the creator or copyright holder one.
-It is forbidden to remove this comment from the script.
+https://www.youtube.com/c/EasyQuestinRobloxStudio
 ]]
+
 local Tool = script.Parent
 local AnimationR15 = script:WaitForChild("AnimationR15", 1)
 local AnimationR6 = script:WaitForChild("AnimationR6", 1)

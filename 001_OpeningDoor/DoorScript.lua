@@ -1,7 +1,7 @@
---[[                 Made by denkodin
-YouTube channels:
+--[[            Made by denkodin
+https://www.roblox.com/users/342156146/profile
 https://www.youtube.com/c/H2MinRobloxStudio
-http://www.youtube.com/c/EasyQuestinRobloxStudio
+https://www.youtube.com/c/EasyQuestinRobloxStudio
 ]]
 
 local Hinge = script.Parent.PrimaryPart
