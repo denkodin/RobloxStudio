@@ -11,7 +11,7 @@ local ServerPurchasedCars = game.ServerStorage:WaitForChild("PurchasedCars")
 local PaintCar = require(game.ReplicatedStorage:WaitForChild("PaintCarModule")).PaintCar
 
 function OnCharacterAdded(player)
-	wait(0.1)
+	wait(2.0)
 	local PurchasedCars = ServerPurchasedCars:FindFirstChild(player.Name)
 	if PurchasedCars then
 		local Cars = PurchasedCars:GetChildren()
@@ -27,7 +27,7 @@ function OnPlayerAdded(player)
 	PurchasedCars.Name = player.Name
 	player.CharacterAdded:Wait()
 	CharacterAdded = CharacterAdded + 1
-	wait(0.1)
+	wait(2.0)
 
 	local DataLoaded = Instance.new("BoolValue", player)
 	DataLoaded.Name = "CarsDataLoaded"
